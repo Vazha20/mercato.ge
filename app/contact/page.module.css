@@ -1,0 +1,114 @@
+.container {
+  max-width: 72rem; /* იგივე რაც header */
+  padding: 40px 16px 80px 16px; /* header-სთან aligned */
+  margin: 0 auto;
+}
+  
+  .title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+  }
+  
+  .subtitle {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  
+  .infoBox {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+  
+  .infoBox h2 {
+    margin-bottom: 20px;
+    color: #000000;
+  }
+  
+  .infoBox p {
+    font-size: 1rem;
+    color: #000000;
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .map {
+    width: 100%;
+    height: 260px;
+    border: none;
+    border-radius: 12px;
+    margin-top: 20px;
+  }
+  
+  .form {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .form h2 {
+    margin-bottom: 10px;
+    color: #111;
+  }
+  
+  .form input,
+  .form textarea {
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    color: #000000;
+    font-size: 1rem;
+    outline: none;
+    transition: border-colo r 0.2s;
+  }
+  
+  .form input:focus,
+  .form textarea:focus {
+    border-color: #000000;
+    color: black;
+  }
+  
+  .form button {
+    background-color: #111;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .form button:hover {
+    background-color: #ffffff;
+    outline: 1px solid black;
+    color: black;
+  }
+  
+  /* Responsive */
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+    .infoBox, .form {
+      padding: 24px;
+    }
+  }
