@@ -11,6 +11,7 @@
     "@ant-design/icons": "^6.1.1",
     "listing": "^0.0.1",
     "next": "16.2.4",
+    "node": "^24.15.0",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },

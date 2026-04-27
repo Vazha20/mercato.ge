@@ -22,6 +22,9 @@ export default function Hero() {
   const [open, setOpen] = useState(false);
   const [selectedDeal, setSelectedDeal] = useState("იყიდება");
 
+  // 👉 NEW (modal state)
+  const [showModal, setShowModal] = useState(false);
+
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   // typing animation
@@ -67,9 +70,7 @@ export default function Hero() {
   const isActive = open || value.length > 0;
 
   return (
-    <section
-      className={`${styles.section} ${open ? styles.bodyShift : ""}`}
-    >
+    <section className={`${styles.section} ${open ? styles.bodyShift : ""}`}>
       {/* TITLE */}
       {!isActive && (
         <div className={styles.visible}>
@@ -112,7 +113,11 @@ export default function Hero() {
           }}
         />
 
-        <AlignRightOutlined className={styles.Details} />
+        {/* 👉 DETAIL BUTTON (opens modal) */}
+        <AlignRightOutlined
+          className={styles.Details}
+          onClick={() => setShowModal(true)}
+        />
 
         <button className={styles.button}>
           <SearchOutlined className={styles.Search} /> ძებნა
@@ -132,7 +137,6 @@ export default function Hero() {
               </button>
             </div>
 
-            {/* DEAL TYPES */}
             <div className={styles.dealTypes}>
               {dealTypes.map((type) => (
                 <button
@@ -147,7 +151,6 @@ export default function Hero() {
               ))}
             </div>
 
-            {/* LOCATION HEADER */}
             <div className={styles.dropdownHeader}>
               <span>აირჩიე მდებარეობა</span>
             </div>
@@ -173,6 +176,87 @@ export default function Hero() {
           </div>
         )}
       </div>
+
+{showModal && (
+  <div
+    className={styles.modalOverlay}
+    onClick={() => setShowModal(false)}
+  >
+    <div
+      className={styles.modal}
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* HEADER */}
+      <div className={styles.modalHeader}>
+        <h2>დეტალური ფილტრი</h2>
+        <button onClick={() => setShowModal(false)}>✕</button>
+      </div>
+
+      {/* ქონების ტიპი */}
+      <p className={styles.label}>ქონების ტიპი</p>
+      <div className={styles.tags}>
+        {[
+          "ბინა",
+          "კერძო სახლი",
+          "აგარაკი",
+          "მიწის ნაკვეთი",
+          "კომერციული ფართი",
+          "სასტუმრო",
+        ].map((item) => (
+          <button key={item} className={styles.tagBtn}>
+            {item}
+          </button>
+        ))}
+      </div>
+
+      {/* გარიგების ტიპი */}
+      <p className={styles.label}>გარიგების ტიპი</p>
+      <div className={styles.tags}>
+        {[
+          "იყიდება",
+          "ქირავდება",
+          "გირავდება",
+          "ქირავდება დღიურად",
+        ].map((item) => (
+          <button key={item} className={styles.tagBtn}>
+            {item}
+          </button>
+        ))}
+      </div>
+
+      {/* მდგომარეობა */}
+      <p className={styles.label}>მდგომარეობა</p>
+      <div className={styles.padding}>
+      <select className={styles.select}>
+        <option>აირჩიე მდგომარეობა</option>
+        <option>ახალი</option>
+        <option>ძველი</option>
+      </select>
+      </div>
+
+      {/* ფასი */}
+      <p className={styles.label}>სრული ფასი</p>
+      <div className={styles.range}>
+        <input type="number" placeholder="დან" />
+        <input type="number" placeholder="მდე" />
+      </div>
+
+      {/* ფართი */}
+      <p className={styles.label}>კვადრატული მეტრის ფასი</p>
+      <div className={styles.range}>
+        <input type="number" placeholder="დან მ²" />
+        <input type="number" placeholder="მდე მ²" />
+      </div>
+
+      {/* ღილაკი */}
+      <div className={styles.paddingBtn}>
+      <button className={styles.submitBtn}>
+        ძებნა
+      </button>
+      </div>
+    </div>
+  </div>
+)}
     </section>
   );
 }

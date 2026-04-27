@@ -8,20 +8,15 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div>
-        <Link href="/">
-        <div className={styles.brand}>
-          
-          <Image
-            src="/l.png"
-            alt="Mercato logo"
-            width={120}
-            height={40}
-            priority
-          />
-       
-       
-        </div>
-        </Link>
+         <Link href="/">
+              <Image
+                src="/l.png"
+                alt="Mercato logo"
+                width={120}
+                height={40}
+                priority
+              />
+          </Link>
         <p style={{marginTop: "8px"}}>იპოვე რაც გჭირდება ან განათავსე განცხადება</p>
         </div>
 

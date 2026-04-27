@@ -37,6 +37,7 @@
 
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   margin-bottom: 1.5rem;
+  cursor: pointer;
 }
 
 .card:hover {
