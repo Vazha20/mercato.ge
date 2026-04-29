@@ -5,7 +5,7 @@ const services = [
   {
     id: 1,
     icon: <VerticalAlignMiddleOutlined />,
-    title: "უძრავი ქონება",
+    title: "სამაკლერო მომსახურება",
   },
   {
     id: 2,

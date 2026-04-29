@@ -26,7 +26,7 @@
   max-width: 56.7rem;
   width: 100%;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 10px;
   outline: none;
 }
 .input:focus{
@@ -186,13 +186,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-
+  backdrop-filter: blur(6px);
   background: rgba(0, 0, 0, 0.4);
-
   display: flex;
-  justify-content: center;  /* ჰორიზონტალურად შუაში */
-  align-items: center;      /* ვერტიკალურად შუაში */
-
+  justify-content: center;
+  align-items: center;      
   z-index: 999;
 }
 .modal {
@@ -201,9 +199,21 @@
   max-height: 90vh;
   overflow-y: auto;
   border-radius: 12px;
-
   color: black;
   font-size: 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  animation: scaleIn 0.25s ease;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .modalHeader {
