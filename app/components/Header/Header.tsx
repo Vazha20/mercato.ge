@@ -7,8 +7,9 @@ import Image from "next/image";
 import {
   PhoneOutlined,
   PlusCircleOutlined,
-  PlusCircleTwoTone,
   UserOutlined,
+  MenuOutlined,
+  CloseOutlined,
 } from "@ant-design/icons";
 
 export default function Header() {
@@ -16,9 +17,13 @@ export default function Header() {
   const [catOpen, setCatOpen] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
 
+  // ✅ MOBILE MENU
+  const [mobileMenuOpen, setMobileMenuOpen] =
+    useState(false);
+
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  // 👉 outside click (categories)
+  // 👉 outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (!(event.target instanceof Node)) return;
@@ -32,8 +37,12 @@ export default function Header() {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
+
     return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside
+      );
   }, []);
 
   const closeModal = () => {
@@ -46,6 +55,7 @@ export default function Header() {
       {/* TOP NAV */}
       <nav className={styles.nav}>
         <div className={styles.container}>
+          {/* LOGO */}
           <Link href="/">
             <Image
               src="/l.png"
@@ -56,11 +66,15 @@ export default function Header() {
             />
           </Link>
 
+          {/* DESKTOP RIGHT */}
           <div className={styles.right}>
             <button className={styles.button}>
-              <PlusCircleOutlined className={styles.AuthIcon}/>
+              <PlusCircleOutlined
+                className={styles.AuthIcon}
+              />
               <p>დამატება</p>
             </button>
+
             <select className={styles.langSelect}>
               <option value="ka">ქართული</option>
               <option value="en">English</option>
@@ -75,19 +89,35 @@ export default function Header() {
               <p>შესვლა</p>
             </button>
           </div>
+
+          {/* BURGER */}
+          <button
+  className={styles.burger}
+  onClick={() =>
+    setMobileMenuOpen(!mobileMenuOpen)
+  }
+>
+  <MenuOutlined />
+</button>
         </div>
       </nav>
 
       {/* BOTTOM NAV */}
       <nav className={styles.nav}>
         <div className={styles.container}>
+          {/* DESKTOP LINKS */}
           <div className={styles.links}>
             <Link href="/aboutus">ჩვენ შესახებ</Link>
 
             {/* DROPDOWN */}
-            <div className={styles.dropdown} ref={dropdownRef}>
+            <div
+              className={styles.dropdown}
+              ref={dropdownRef}
+            >
               <span
-                onClick={() => setCatOpen((prev) => !prev)}
+                onClick={() =>
+                  setCatOpen((prev) => !prev)
+                }
                 className={`${styles.dropdownTitle} ${
                   catOpen ? styles.active : ""
                 }`}
@@ -101,46 +131,107 @@ export default function Header() {
                   <Link href="/categories/all">
                     ყველა განცხადება
                   </Link>
+
                   <Link href="/categories/vegetables">
                     იყიდება ბინები
                   </Link>
+
                   <Link href="/categories/meat">
                     ქირავდება ბინები
                   </Link>
-                  <Link href="/categories/dairy">
+
+                  <Link href="/categories/daily">
                     ბინა დღიურად
                   </Link>
-                  <Link href="/categories/dairy">
-                    ბინა დღიურად
+
+                  <Link href="/categories/car">
+                    მანქანები
                   </Link>
-                  <Link href="/categories/dairy">
-                    ბინა დღიურად
+
+                  <Link href="/categories/land">
+                    მიწები
                   </Link>
-                  <Link href="/categories/dairy">
-                    ბინა დღიურად
-                  </Link>
-                  <Link href="/categories/dairy">
-                    ბინა დღიურად
-                  </Link>
-                  <Link href="/categories/dairy">
-                    ბინა დღიურად
+
+                  <Link href="/categories/commercial">
+                    კომერციული ფართები
                   </Link>
                 </div>
               )}
             </div>
 
             <Link href="/services">სერვისები</Link>
+
             <Link href="/contact">კონტაქტი</Link>
           </div>
 
+          {/* PHONE */}
           <div className={styles.Flex}>
             <PhoneOutlined className={styles.Phone} />
-            <div className={styles.links}>
+
+            <div className={styles.phoneText}>
               +995 555 555 555
             </div>
           </div>
         </div>
       </nav>
+
+      {/* MOBILE MENU */}
+      <div
+        className={`${styles.mobileMenu} ${
+          mobileMenuOpen ? styles.showMenu : ""
+        }`}
+      >
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+  <button
+    onClick={() => setMobileMenuOpen(false)}
+    className={styles.closeMenuBtn}
+  >
+    <CloseOutlined />
+  </button>
+</div>
+        <Link
+          href="/aboutus"
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          ჩვენ შესახებ 
+        </Link>
+
+        <Link
+          href="/services"
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          სერვისები
+        </Link>
+
+        <Link
+          href="/contact"
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          კონტაქტი
+        </Link>
+
+        <button className={styles.mobileBtn}>
+          <PlusCircleOutlined />
+          დამატება
+        </button>
+
+        <button
+          className={styles.mobileBtn}
+          onClick={() => {
+            setOpen(true);
+            setMobileMenuOpen(false);
+          }}
+        >
+          <UserOutlined />
+          შესვლა
+        </button>
+
+        <select className={styles.mobileSelect}>
+          <option value="ka">ქართული</option>
+          <option value="en">English</option>
+          <option value="ru">Русский</option>
+        </select>
+      </div>
 
       {/* LOGIN / REGISTER MODAL */}
       {open && (
@@ -154,7 +245,9 @@ export default function Header() {
           >
             <div className={styles.LoginFlex}>
               <h2 className={styles.modalTitle}>
-                {isRegister ? "რეგისტრაცია" : "შესვლა"}
+                {isRegister
+                  ? "რეგისტრაცია"
+                  : "შესვლა"}
               </h2>
 
               <button
@@ -165,7 +258,6 @@ export default function Header() {
               </button>
             </div>
 
-            {/* REGISTER დამატებითი ველი */}
             {isRegister && (
               <input
                 className={styles.input}
@@ -186,7 +278,6 @@ export default function Header() {
               placeholder="პაროლი"
             />
 
-            {/* REGISTER confirm */}
             {isRegister && (
               <input
                 className={styles.input}
@@ -196,7 +287,9 @@ export default function Header() {
             )}
 
             <button className={styles.loginBtn}>
-              {isRegister ? "რეგისტრაცია" : "შესვლა"}
+              {isRegister
+                ? "რეგისტრაცია"
+                : "შესვლა"}
             </button>
 
             <p className={styles.extra}>
@@ -213,7 +306,9 @@ export default function Header() {
                   marginLeft: 6,
                 }}
               >
-                {isRegister ? "შესვლა" : "რეგისტრაცია"}
+                {isRegister
+                  ? "შესვლა"
+                  : "რეგისტრაცია"}
               </span>
             </p>
           </div>
